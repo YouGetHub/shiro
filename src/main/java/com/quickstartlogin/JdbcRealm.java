@@ -11,7 +11,9 @@ import org.apache.shiro.util.Factory;
 import org.junit.Test;
 
 /**
- * Shiro内置JdbcRealm
+ * Shiro内置JdbcRealm 权限验证
+ * test：使用jdbcrealm.ini 方法  +\shiro\src\main\resources\jdbcrealm.ini
+ * test2: test2Authentication  jdbc
  * @author zouhao
  */
 public class JdbcRealm {
