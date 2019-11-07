@@ -8,6 +8,10 @@ import org.apache.shiro.subject.Subject;
 import org.junit.Before;
 import org.junit.Test;
 
+/**
+ * Springboot整合Shiro 权限验证demo
+ * @author zou
+ */
 public class QuickStart{
     private SimpleAccountRealm simpleAccountRealm = new SimpleAccountRealm();
 
