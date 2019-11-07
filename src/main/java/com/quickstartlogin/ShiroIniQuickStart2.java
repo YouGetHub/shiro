@@ -11,6 +11,10 @@ import org.apache.shiro.subject.Subject;
 import org.apache.shiro.util.Factory;
 import org.testng.annotations.Test;
 
+/**
+ * Springboot+Shiro+\shiro\src\main\resources\shiro.ini内置ini Realm实操和权限验证
+ * @author zou
+ */
 public class ShiroIniQuickStart2 {
     @Test
     public void testAuthentication(){
