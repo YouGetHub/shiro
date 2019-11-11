@@ -36,7 +36,7 @@ public class QuickStart{
 
         // 用户输入的账号密码
         UsernamePasswordToken usernamePasswordToken =
-                new UsernamePasswordToken("username1","123");
+                new UsernamePasswordToken("username2","123");
 
         // 开始认证
         subject.login(usernamePasswordToken);
