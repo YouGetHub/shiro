@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<style type="text/css">
+    body{
+        margin:0;
+        padding:0;
+        font-size:12px;
+        line-height:20px;
+    }
+    .main{
+        width:525px;
+        margin-left:auto;
+        margin-right:auto;
+    }
+    .hr_1 {
+        font-size: 14px;
+        font-weight: bold;
+        color: #3275c3;
+        height: 35px;
+        border-bottom-width: 2px;
+        border-bottom-style: solid;
+        border-bottom-color: #3275c3;
+        vertical-align:bottom;
+        padding-left:12px;
+    }
+    .left{
+        text-align:right;
+        width:80px;
+        height:25px;
+        padding-right:5px;
+    }
+
+    .center{
+        width:135px;
+    }
+    .in{
+        width:130px;
+        height:16px;
+        border:solid 1px #79abea;
+    }
+
+    .red{
+        color:#cc0000;
+        font-weight:bold;
+    }
+
+    div{
+        color:#F00;
+    }
+</style>
+<script type="text/javascript" src="/shiro/js/Jquery-3.4.1.js"></script>
+<script>
+    function sub() {
+        var username = $.trim($("#username1").val());
+        var password = $.trim($("#password1").val());
+        var userdata = {};
+        userdata['username']= username;
+        userdata['password']= password;
+        $.ajax({
+            type: "POST",
+            contentType: "application/json",
+            url: "/shiro/public/login",
+            data: JSON.stringify(userdata),
+            success: function (data) {
+                console.log(data.code);
+                console.log(data.mag);
+                console.log(data);
+                if (data.code == 0){
+                    $("#user_prompt").text(data.data.massage);
+                    setTimeout(function () {
+                        window.location.href = "/shiro/public/index/";
+                    },"2000");
+
+                }else if(data.code== -1){
+                    $("#user_prompt").text(data.msg);
+                }
+            },error:function (data) {
+                console.log(data)
+                if (data.code== "-1"){
+                    $("#user_prompt").text(data.msg);
+                }
+            }
+        });
+    }
+</script>
+<body>
+
+<table class="main" border="0" cellspacing="0" cellpadding="0">
+    <tr>
+        <td style="height:10px;"></td>
+    </tr>
+    <tr>
+        <td><table width="100%" border="0" cellspacing="0" cellpadding="0">
+            <tr>
+                <td class="left">用户名：</td>
+                <td class="center"><input id="username1" name="username" type="text" class="in"></td>
+                <td><div id="user_prompt"></div></td>
+            </tr>
+            <tr>
+                <td class="left">密码：</td>
+                <td class="center"><input id="password1" name="password" type="text" class="in"></td>
+                <td><div id="pwd_prompt"></div></td>
+            </tr>
+            <tr>
+                <td class="left">&nbsp;</td>
+                <td class="center">
+                    <disabled>
+                        <input type="button" value="login" onclick="sub()"/>
+                    </disabled>
+                </td>
+                <td>&nbsp;</td>
+            </tr>
+        </table>
+        </td>
+    </tr>
+</table>
+</body>
+</html>
