@@ -67,7 +67,7 @@
             data: JSON.stringify(userdata),
             success: function (data) {
                 console.log(data.code);
-                console.log(data.mag);
+                console.log(data.msg);
                 console.log(data);
                 if (data.code == 0){
                     $("#user_prompt").text(data.data.massage);
