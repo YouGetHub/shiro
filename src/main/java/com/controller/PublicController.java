@@ -54,6 +54,7 @@ public class PublicController {
     @RequestMapping("login")
     @ResponseBody
     private JsonData login(@RequestBody InputUser user){
+        System.out.println("login");
         Subject subject = SecurityUtils.getSubject();
         Map<String,Object> map = new HashMap<>();
         try{
