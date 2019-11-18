@@ -23,12 +23,11 @@ public class CustomRolesOrAuthorizationFilter extends AuthorizationFilter {
         //获取当前访问路径所需要的角色集合
         String[] rolesArray = (String[]) mappedValue;
 
-        //没有角色限制，可以直接访问
+        // 一个角色不需要拥有2个角色，有一个就可以访问
         if (rolesArray == null || rolesArray.length == 0) {
             //no roles specified, so nothing to check - allow access.
             return true;
         }
-
 
         Set<String> roles = CollectionUtils.asSet(rolesArray);
 
