@@ -9,6 +9,9 @@ import javax.servlet.http.HttpServletRequest;
 import java.util.HashMap;
 import java.util.Map;
 
+/**
+ * 需要用户登录认证才可以访问
+ */
 @RestController
 @RequestMapping("authc")
 public class OrderController {

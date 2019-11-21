@@ -1,18 +1,15 @@
 package com.controller;
 
 
-import com.domain.JsonData;
-import org.apache.shiro.SecurityUtils;
-import org.apache.shiro.subject.Subject;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.RestController;
 
 import javax.servlet.http.HttpServletRequest;
-import java.util.HashMap;
-import java.util.Map;
 
+/**
+ * 退出 清除sessionID
+ */
 @Controller
 public class LogoutController {
 

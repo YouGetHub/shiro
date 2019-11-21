@@ -1,9 +1,11 @@
 package com.domain;
 
+import java.io.Serializable;
+
 /**
  * 用户角色权限表
  */
-public class Permission {
+public class Permission implements Serializable {
     private Integer id; // 权限id
 
     private String name; // 权限名

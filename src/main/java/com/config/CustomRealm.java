@@ -28,10 +28,10 @@ public class CustomRealm extends AuthorizingRealm {
     protected AuthorizationInfo doGetAuthorizationInfo(PrincipalCollection principalCollection) {
         System.out.println("身份授权");
         // 获取username
-        String username = (String) principalCollection.getPrimaryPrincipal();
+        User newUser = (User) principalCollection.getPrimaryPrincipal();
 
         // 根据输入的username获取全部用户信息，包括角色，权限
-        User user = userService.findAllUserInfoByUsername(username);
+        User user = userService.findAllUserInfoByUsername(newUser.getUsername());
 
         // 存放得到的角色信息
         List<String> stringRoleList = new ArrayList<>();
@@ -84,6 +84,6 @@ public class CustomRealm extends AuthorizingRealm {
         }
 
         System.out.println("认证成功");
-        return new SimpleAuthenticationInfo(username,user.getPassword(),this.getClass().getName());
+        return new SimpleAuthenticationInfo(user,user.getPassword(),this.getClass().getName());
     }
 }

@@ -4,8 +4,12 @@ package com.config;
 import org.apache.shiro.authc.credential.HashedCredentialsMatcher;
 import org.apache.shiro.mgt.SecurityManager;
 import org.apache.shiro.session.mgt.SessionManager;
+import org.apache.shiro.spring.LifecycleBeanPostProcessor;
 import org.apache.shiro.spring.web.ShiroFilterFactoryBean;
 import org.apache.shiro.web.mgt.DefaultWebSecurityManager;
+import org.crazycake.shiro.RedisCacheManager;
+import org.crazycake.shiro.RedisManager;
+import org.crazycake.shiro.RedisSessionDAO;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
@@ -76,15 +80,16 @@ public class ShiroConfig {
         // 使用自定义的cacheManager
         securityManager.setSessionManager(sessionManager());
 
+        // 使用自定的CacheManager
+        securityManager.setCacheManager(redisCacheManager());
+
         // 设置realm
         securityManager.setRealm(customRealm());
+
         return securityManager;
     }
 
-    /**
-     * 自定义realm
-     * @return
-     */
+    // 自定义realm
     @Bean
     public CustomRealm customRealm(){
         CustomRealm customRealm = new CustomRealm();
@@ -93,10 +98,7 @@ public class ShiroConfig {
         return customRealm;
     }
 
-    /**
-     * 密码加解密规则
-     * @return
-     */
+    // 密码加解密规则
     @Bean
     public HashedCredentialsMatcher hashedCredentialsMatcher(){
         HashedCredentialsMatcher credentialsMatcher = new HashedCredentialsMatcher();
@@ -110,15 +112,48 @@ public class ShiroConfig {
         return credentialsMatcher;
     }
 
-    /**
-     * 自定义 sessionManager
-     * @return
-     */
+    // 自定义 sessionManager
     @Bean
     public SessionManager sessionManager(){
         CustomSessionManager sessionManager = new CustomSessionManager();
-        //超时时间，默认 30分钟，会话超时；方法里面的单位是毫秒
-        sessionManager.setGlobalSessionTimeout(500000);
+
+        // 配置Session持久化
+        sessionManager.setSessionDAO(redisSessionDAO());
+
+        //超时时间，默认 30分钟，会话超时；方法里面的单位是毫秒  10秒
+        sessionManager.setGlobalSessionTimeout(30000);
         return sessionManager;
     }
+
+    // 配置 redisMessager
+    public RedisManager redisManager (){
+        RedisManager redisManager = new RedisManager();
+        redisManager.setHost("192.168.220.11");
+//        redisManager.setHost("172.16.0.14");
+        redisManager.setPort(6379);
+        return redisManager;
+    }
+
+    // RedisCacheManager
+    public RedisCacheManager redisCacheManager (){
+        RedisCacheManager redisCacheManager = new RedisCacheManager();
+        redisCacheManager.setRedisManager(redisManager());
+
+        // 设置过期时间，单位秒
+        redisCacheManager.setExpire(30);
+        return redisCacheManager;
+    }
+
+    // 自定义session持久化
+    public RedisSessionDAO redisSessionDAO (){
+        RedisSessionDAO redisSessionDAO = new RedisSessionDAO();
+        redisSessionDAO.setRedisManager(redisManager());
+        return redisSessionDAO;
+    }
+
+/*    // 管理shiro一些bean的生命周期 即bean初始化 与销毁
+    @Bean
+    public LifecycleBeanPostProcessor lifecycleBeanPostProcessor() {
+        return new LifecycleBeanPostProcessor();
+    }*/
 }

@@ -1,12 +1,13 @@
 package com.domain;
 
+import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
 
 /**
  * 用户表
  */
-public class User {
+public class User implements Serializable {
     private Integer id;// 用户id
 
     private String username;// 用户名

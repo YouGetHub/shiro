@@ -14,6 +14,9 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+/**
+ * 游客模式，
+ */
 @Controller
 @RequestMapping("/public")
 public class PublicController {

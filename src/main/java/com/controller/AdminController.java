@@ -12,7 +12,10 @@ import java.util.Map;
 @RequestMapping("admin")
 public class AdminController {
 
-    // 有 admin 超级管理员的角色才可以访问
+    /**
+     * 有 admin 超级管理员 或 root 管理员 的角色才可以访问
+     * @return
+     */
     @RequestMapping("/video/order")
     public JsonData findMyPlayRecord(){
 
