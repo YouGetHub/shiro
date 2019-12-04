@@ -7,8 +7,6 @@ import org.apache.shiro.authc.UsernamePasswordToken;
 import org.apache.shiro.subject.Subject;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
-import org.testng.mustache.Model;
-
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
